@@ -2,6 +2,7 @@
 
 #include "NimBLEDevice.h"
 #include "NimBLEBeacon.h"
+#include "wifi_setup.h"
 
 #include <ESPmDNS.h>
 #include <WiFi.h>
@@ -50,11 +51,8 @@ void setup() {
   Serial.begin(115200);
 #endif
 
-  if (WiFi.begin(SSID, PASSWORD) == WL_CONNECT_FAILED) {
-#if DEBUG
-     Serial.println("Error starting WiFi");
-#endif
-  } else {
+  initWiFi();
+  {
     while (WiFi.status() != WL_CONNECTED) {
       delay(500);
 #if DEBUG
